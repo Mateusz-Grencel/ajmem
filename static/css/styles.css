@@ -1,0 +1,54 @@
+.background{
+    background-image: url("/static/images/art.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    min-height:100vh;
+}
+
+.sticky-menu-nav{
+    position:sticky;
+    top:0px;
+    z-index:1000;
+}
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+#about, #contact, #artjam, #cdv, #blackwhite, #random, #normal {
+  scroll-margin-top: 65px;
+}
+
+#mem-generator {
+    background-image: url("../images/troll-face.png");
+    background-size: min(80%, 1500px);
+    background-position: center;
+    background-repeat: no-repeat;
+    /* Ustawiamy minimalną wysokość sekcji */
+    min-height: 1000px; /* Twoja docelowa wysokość */
+
+    /* Dodajemy flexbox do sekcji, aby umożliwić jej zawartości (formularzowi) rozciąganie */
+    display: flex;
+    flex-direction: column; /* Układamy zawartość w kolumnie */
+    justify-content: center; /* Wyśrodkowujemy zawartość (formularz) w pionie */
+}
+
+/* Możesz również dodać to, aby kontener wewnętrzny div.max-w-screen-md rozciągał się */
+#mem-generator > div.max-w-screen-md {
+    flex-grow: 1; /* Pozwala temu divowi rosnąć i zajmować dostępną przestrzeń */
+    display: flex; /* Ustawiamy flex, aby wewnętrzny formularz mógł się wyśrodkować */
+    flex-direction: column;
+    justify-content: center; /* Wyśrodkowuje formularz w pionie w tym divie */
+}
+
+.py-210 {
+  padding-top: 210px;
+  padding-bottom: 210px;
+}
+
+mb-60{
+  padding-bottom:60px;
+}

@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mem</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/output.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html, body { margin: 0; padding: 0; height: 100%; }
+        iframe { width: 100%; height: 100%; border: none; }
+        scroll-behavior: smooth;
+    </style>
+</head>
+<body class="background">
+<!-- Nawigacja główna -->
+<nav class="bg-white/90 hover:bg-white transition duration-300 sticky-menu-nav border-2 border-turquoise mb-0 pb-0">
+  <div class="max-w-screen-xl mx-auto flex items-center justify-between px-8 py-4">
+
+    <div class="w-1/6 flex justify-start">
+      <a href="/">
+        <img src="{{ url_for('static', filename='images/favicon.png') }}" alt="Logo" class="h-16 w-auto">
+      </a>
+    </div>
+
+    <div class="md:hidden">
+      <button id="hamburger-button" class="text-turquoise hover:text-light-rose focus:outline-none">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+
+    <ul class="hidden md:flex w-3/5 justify-center space-x-16">
+      <li class="relative group">
+        <a href="#" class="text-turquoise hover:text-light-rose transition duration-300 flex items-center">
+          Komiks
+          <svg class="ml-1 w-4 h-4 fill-current text-turquoise group-hover:text-light-rose" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M5.25 7.75L10 12.5l4.75-4.75z"/></svg>
+        </a>
+        <ul
+          class="absolute left-0 top-full mt-0 w-40 bg-white border border-turquoise rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-opacity duration-300 z-50"
+          style="margin-top: 0 !important;"
+        >
+          <li><a href="#artjam" class="block px-4 py-2 text-turquoise hover:bg-turquoise hover:text-white">artjam</a></li>
+          <li><a href="#cdv" class="block px-4 py-2 text-turquoise hover:bg-turquoise hover:text-white">cdv</a></li>
+          <li><a href="#blackwhite" class="block px-4 py-2 text-turquoise hover:bg-turquoise hover:text-white">blackwhite</a></li>
+          <li><a href="#random" class="block px-4 py-2 text-turquoise hover:bg-turquoise hover:text-white">random</a></li>
+          <li><a href="#normal" class="block px-4 py-2 text-turquoise hover:bg-turquoise hover:text-white">normal</a></li>
+        </ul>
+      </li>
+      <li><a href="#" class="text-turquoise hover:text-light-rose transition duration-300">Mapa</a></li>
+      <li><a href="#" class="text-turquoise hover:text-light-rose transition duration-300">Mem</a></li>
+      <li><a href="#" class="text-turquoise hover:text-light-rose transition duration-300">Style</a></li>
+      <li><a href="#faq" class="text-turquoise hover:text-light-rose transition duration-300">FAQ</a></li>
+      <li><a href="#about" class="text-turquoise hover:text-light-rose transition duration-300 whitespace-nowrap">O nas</a></li>
+      <li><a href="#contact" class="text-turquoise hover:text-light-rose transition duration-300">Kontakt</a></li>
+    </ul>
+
+    <div class="w-1/5 hidden md:block"></div>
+
+  </div>
+
+  <div id="mobile-menu" class="hidden md:hidden">
+    <ul class="flex flex-col items-center py-4 space-y-4 bg-white border-t border-turquoise">
+      <li class="relative group w-full text-center">
+        <a href="#" class="text-turquoise hover:text-light-rose transition duration-300 flex items-center justify-center">
+          Komiks
+          <svg class="ml-1 w-4 h-4 fill-current text-turquoise group-hover:text-light-rose" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M5.25 7.75L10 12.5l4.75-4.75z"/></svg>
+        </a>
+        <ul class="mt-2 w-full bg-white border-t border-turquoise shadow-lg group-hover:block hidden">
+          <li><a href="#artjam" class="block px-4 py-2 text-turquoise hover:bg-turquoise hover:text-white">artjam</a></li>
+          <li><a href="#cdv" class="block px-4 py-2 text-turquoise hover:bg-turquoise hover:text-white">cdv</a></li>
+          <li><a href="#blackwhite" class="block px-4 py-2 text-turquoise hover:bg-turquoise hover:text-white">blackwhite</a></li>
+          <li><a href="#random" class="block px-4 py-2 text-turquoise hover:bg-turquoise hover:text-white">random</a></li>
+          <li><a href="#normal" class="block px-4 py-2 text-turquoise hover:bg-turquoise hover:text-white">normal</a></li>
+        </ul>
+      </li>
+      <li><a href="#" class="text-turquoise hover:text-light-rose transition duration-300">Mapa</a></li>
+      <li><a href="#" class="text-turquoise hover:text-light-rose transition duration-300">Mem</a></li>
+      <li><a href="#" class="text-turquoise hover:text-light-rose transition duration-300">Style</a></li>
+      <li><a href="#faq" class="text-turquoise hover:text-light-rose transition duration-300">FAQ</a></li>
+      <li><a href="#about" class="text-turquoise hover:text-light-rose transition duration-300 whitespace-nowrap">O nas</a></li>
+      <li><a href="#contact" class="text-turquoise hover:text-light-rose transition duration-300">Kontakt</a></li>
+    </ul>
+  </div>
+</nav>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const hamburgerButton = document.getElementById('hamburger-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (hamburgerButton && mobileMenu) {
+      hamburgerButton.addEventListener('click', function() {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+  });
+</script>
+
+<section id="mem-generator" class="py-16">
+  <div class="max-w-screen-md mx-auto px-6 text-center">
+        <form id="memeForm" class="flex flex-col space-y-6 flex-grow justify-center">
+
+          <div>
+              <label for="top_text" class="block text-turquoise text-center font-semibold mb-2">Tekst górny:</label>
+              <input type="text" name="top_text" id="top_text" placeholder="Np. Kiedy kończy się sesja..."
+                     class="w-full px-4 py-2 border border-turquoise rounded focus:outline-none focus:ring-2 focus:ring-turquoise
+                            text-gray-700 bg-white">
+          </div>
+
+          <div class="flex flex-col items-center justify-center space-y-4">
+            <div>
+              <input type="file" name="image" id="image" accept="image/*" required class="hidden" />
+              <label for="image"
+                     class="cursor-pointer inline-flex items-center justify-center px-6 py-4 bg-gradient-to-r from-pink-400 via-red-400 to-yellow-400
+                            text-white text-xl font-extrabold rounded-3xl shadow-lg hover:from-yellow-400 hover:via-red-400 hover:to-pink-400
+                            transition duration-500 select-none whitespace-nowrap">Dodaj tu mema, mistrzu!
+              </label>
+            </div>
+
+            <div id="displayContainer" class="mt-4 hidden w-full md:max-w-[450px] border-2 border-turquoise rounded-lg shadow-lg flex items-center justify-center overflow-hidden bg-gray-100">
+              <img id="dynamicImageDisplay" src="" alt="Podgląd lub wygenerowany mem" class="max-w-full h-auto object-contain">
+            </div>
+          </div>
+
+          <div>
+            <label for="bottom_text" class="block text-turquoise text-center font-semibold mb-2">Tekst dolny:</label>
+            <input type="text" name="bottom_text" id="bottom_text" placeholder="...a Ty nadal nie śpisz"
+                   class="w-full px-4 py-2 border border-turquoise rounded focus:outline-none focus:ring-2 focus:ring-turquoise
+                          text-gray-700 bg-white">
+          </div>
+
+          <button type="submit"
+                  class="bg-turquoise text-white px-6 py-3 rounded-xl hover:bg-light-rose transition duration-300 font-semibold
+                         shadow-md hover:shadow-lg self-center">
+            Generuj mem
+          </button>
+        </form>
+
+        <div id="loadingSpinner" class="mt-6 hidden">
+          <svg class="animate-spin h-10 w-10 mx-auto text-turquoise" xmlns="http://www.w3.org/2000/svg" fill="none"
+               viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10"
+                    stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor"
+                  d="M4 12a8 8 0 018-8v8z"></path>
+          </svg>
+          <p class="text-turquoise mt-2">Tworzymy mema...</p>
+        </div>
+
+        <div id="memeError" class="mt-4 text-red-500 font-semibold hidden"></div>
+  </div>
+</section>
+
+<section id="faq" class="bg-turquoise text-white py-16">
+  <div class="max-w-screen-xl mx-auto px-6">
+    <h2 class="text-3xl font-bold text-center mb-10">FAQ – Najczęściej zadawane pytania</h2>
+
+          <!-- Pytanie 1 -->
+      <div class="bg-turquoise border border-white rounded-lg overflow-hidden mb-4">
+        <button class="w-full group flex items-center px-6 py-4 text-gray-100 hover:text-white font-semibold text-lg transition-colors duration-300 faq-toggle cursor-pointer" type="button">
+          <span class="flex-grow text-left block w-full pointer-events-auto">Jak mogę dodać własny obrazek?</span>
+          <span class="flex items-center pointer-events-none">
+            <svg class="w-4 h-4 transition-transform duration-300 arrow-icon group-[.open]:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none"
+                 viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </span>
+        </button>
+        <div class="hidden px-6 pb-4 text-white faq-answer">
+          Kliknij przycisk „Dodaj tu mema, mistrzu!” i wybierz plik z komputera. Obsługiwane są formaty JPG, PNG i inne obrazy.
+        </div>
+      </div>
+
+      <!-- Pytanie 2 -->
+      <div class="bg-turquoise border border-white rounded-lg overflow-hidden mb-4">
+        <button class="w-full group flex items-center px-6 py-4 text-gray-100 hover:text-white font-semibold text-lg transition-colors duration-300 faq-toggle cursor-pointer" type="button">
+          <span class="flex-grow text-left block w-full pointer-events-auto">Czy muszę podawać oba teksty – górny i dolny?</span>
+          <span class="flex items-center pointer-events-none">
+            <svg class="w-4 h-4 transition-transform duration-300 arrow-icon group-[.open]:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none"
+                 viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </span>
+        </button>
+        <div class="hidden px-6 pb-4 text-white faq-answer">
+          Nie, możesz wypełnić tylko jeden z nich – górny lub dolny. Aplikacja dostosuje układ automatycznie.
+        </div>
+      </div>
+
+      <!-- Pytanie 3 -->
+      <div class="bg-turquoise border border-white rounded-lg overflow-hidden mb-4">
+        <button class="w-full group flex items-center px-6 py-4 text-gray-100 hover:text-white font-semibold text-lg transition-colors duration-300 faq-toggle cursor-pointer" type="button">
+          <span class="flex-grow text-left block w-full pointer-events-auto">Co się dzieje po kliknięciu „Generuj mem”?</span>
+          <span class="flex items-center pointer-events-none">
+            <svg class="w-4 h-4 transition-transform duration-300 arrow-icon group-[.open]:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none"
+                 viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </span>
+        </button>
+        <div class="hidden px-6 pb-4 text-white faq-answer">
+          Twój obraz wraz z tekstem zostanie przesłany do serwera, który wygeneruje gotowego mema i pokaże go na stronie.
+        </div>
+      </div>
+
+      <!-- Pytanie 4 -->
+      <div class="bg-turquoise border border-white rounded-lg overflow-hidden mb-4">
+        <button class="w-full group flex items-center px-6 py-4 text-gray-100 hover:text-white font-semibold text-lg transition-colors duration-300 faq-toggle cursor-pointer" type="button">
+          <span class="flex-grow text-left block w-full pointer-events-auto">Czy mogę zapisać wygenerowanego mema?</span>
+          <span class="flex items-center pointer-events-none">
+            <svg class="w-4 h-4 transition-transform duration-300 arrow-icon group-[.open]:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none"
+                 viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </span>
+        </button>
+        <div class="hidden px-6 pb-4 text-white faq-answer">
+          Tak! Po wygenerowaniu możesz kliknąć prawym przyciskiem myszy na obrazek i wybrać „Zapisz jako...“.
+        </div>
+      </div>
+
+      <!-- Pytanie 5 -->
+      <div class="bg-turquoise border border-white rounded-lg overflow-hidden mb-4">
+        <button class="w-full group flex items-center px-6 py-4 text-gray-100 hover:text-white font-semibold text-lg transition-colors duration-300 faq-toggle cursor-pointer" type="button">
+          <span class="flex-grow text-left block w-full pointer-events-auto">Jakie rozmiary obrazków są obsługiwane?</span>
+          <span class="flex items-center pointer-events-none">
+            <svg class="w-4 h-4 transition-transform duration-300 arrow-icon group-[.open]:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none"
+                 viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </span>
+        </button>
+        <div class="hidden px-6 pb-4 text-white faq-answer">
+          Najlepiej działają obrazki w poziomie (landscape), ale aplikacja dopasuje także inne proporcje.
+        </div>
+      </div>
+
+      <!-- Pytanie 6 -->
+      <div class="bg-turquoise border border-white rounded-lg overflow-hidden mb-4">
+        <button class="w-full group flex items-center px-6 py-4 text-gray-100 hover:text-white font-semibold text-lg transition-colors duration-300 faq-toggle cursor-pointer" type="button">
+          <span class="flex-grow text-left block w-full pointer-events-auto">Czy mogę edytować mem po jego wygenerowaniu?</span>
+          <span class="flex items-center pointer-events-none">
+            <svg class="w-4 h-4 transition-transform duration-300 arrow-icon group-[.open]:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none"
+                 viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </span>
+        </button>
+        <div class="hidden px-6 pb-4 text-white faq-answer">
+          Nie, ale możesz ponownie wpisać inne teksty i kliknąć „Generuj mem”, aby stworzyć nową wersję.
+        </div>
+      </div>
+
+      <!-- Pytanie 7 -->
+      <div class="bg-turquoise border border-white rounded-lg overflow-hidden mb-4">
+        <button class="w-full group flex items-center px-6 py-4 text-gray-100 hover:text-white font-semibold text-lg transition-colors duration-300 faq-toggle cursor-pointer" type="button">
+          <span class="flex-grow text-left block w-full pointer-events-auto">Czy aplikacja działa na telefonie?</span>
+          <span class="flex items-center pointer-events-none">
+            <svg class="w-4 h-4 transition-transform duration-300 arrow-icon group-[.open]:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none"
+                 viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </span>
+        </button>
+        <div class="hidden px-6 pb-4 text-white faq-answer">
+          Tak, aplikacja jest responsywna i działa na większości urządzeń mobilnych i tabletów.
+        </div>
+      </div>
+
+      <!-- Pytanie 8 -->
+      <div class="bg-turquoise border border-white rounded-lg overflow-hidden mb-4">
+        <button class="w-full group flex items-center px-6 py-4 text-gray-100 hover:text-white font-semibold text-lg transition-colors duration-300 faq-toggle cursor-pointer" type="button">
+          <span class="flex-grow text-left block w-full pointer-events-auto">Czy moje obrazki są gdzieś zapisywane?</span>
+          <span class="flex items-center pointer-events-none">
+            <svg class="w-4 h-4 transition-transform duration-300 arrow-icon group-[.open]:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none"
+                 viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </span>
+        </button>
+        <div class="hidden px-6 pb-4 text-white faq-answer">
+          Nie, obrazki są przetwarzane tymczasowo i nie są przechowywane na serwerze.
+        </div>
+      </div>
+
+      <!-- Pytanie 9 -->
+      <div class="bg-turquoise border border-white rounded-lg overflow-hidden mb-4">
+        <button class="w-full group flex items-center px-6 py-4 text-gray-100 hover:text-white font-semibold text-lg transition-colors duration-300 faq-toggle cursor-pointer" type="button">
+          <span class="flex-grow text-left block w-full pointer-events-auto">Czy mogę używać memów do celów komercyjnych?</span>
+          <span class="flex items-center pointer-events-none">
+            <svg class="w-4 h-4 transition-transform duration-300 arrow-icon group-[.open]:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none"
+                 viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </span>
+        </button>
+        <div class="hidden px-6 pb-4 text-white faq-answer">
+          Możesz, ale upewnij się, że nie naruszasz praw autorskich do obrazków, które przesyłasz.
+        </div>
+      </div>
+
+      <!-- Pytanie 10 -->
+      <div class="bg-turquoise border border-white rounded-lg overflow-hidden mb-4">
+        <button class="w-full group flex items-center px-6 py-4 text-gray-100 hover:text-white font-semibold text-lg transition-colors duration-300 faq-toggle cursor-pointer" type="button">
+          <span class="flex-grow text-left block w-full pointer-events-auto">Kto może mi pomóc, jeśli mam problem?</span>
+          <span class="flex items-center pointer-events-none">
+            <svg class="w-4 h-4 transition-transform duration-300 arrow-icon group-[.open]:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none"
+                 viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </span>
+        </button>
+        <div class="hidden px-6 pb-4 text-white faq-answer">
+          Skontaktuj się z nami poprzez formularz kontaktowy na stronie lub napisz maila na support@example.com.
+        </div>
+      </div>
+  </div>
+
+<script>
+  document.querySelectorAll('.faq-toggle').forEach(button => {
+    button.addEventListener('click', () => {
+      const answer = button.nextElementSibling;
+      const isOpen = !answer.classList.contains('hidden');
+
+      // Zamknij wszystkie odpowiedzi i zresetuj strzałki
+      document.querySelectorAll('.faq-answer').forEach(ans => ans.classList.add('hidden'));
+      document.querySelectorAll('.faq-toggle').forEach(btn => {
+        btn.classList.remove('text-white');
+        btn.classList.add('text-white/70');
+        const icon = btn.querySelector('.arrow-icon');
+        if (icon) {
+          icon.classList.remove('rotate-180');
+          icon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />`;
+        }
+      });
+
+      // Otwórz kliknięte
+      if (!isOpen) {
+        answer.classList.remove('hidden');
+        button.classList.remove('text-white/70');
+        button.classList.add('text-white');
+        const icon = button.querySelector('.arrow-icon');
+        if (icon) {
+          icon.classList.add('rotate-180');
+          icon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />`; // Strzałka w górę
+        }
+      }
+    });
+  });
+</script>
+</section>
+
+<!--  O nas-->
+  <section id="about" class="bg-white py-16">
+  <div class="max-w-screen-xl mx-auto px-6">
+    <h2 class="text-3xl font-bold text-red-rose mb-6 text-center">O nas</h2>
+    <div class="text-gray-800 space-y-4 text-justify">
+      <p>Jesteśmy klubem, który pragnie rozwijać pasje wszystkich swoich członków, a także działać w szeroko pojętym obszarze twórczości artystycznej. Wspieramy naszych członków, poszerzając ich zainteresowania w dziedzinie sztuk plastycznych, ze szczególnym uwzględnieniem zagadnień związanych z grafiką warsztatową.</p>
+      <p>Art Jam tworzą osoby nie tylko bardzo wrażliwe na otaczającą je rzeczywistość, ale przede wszystkim twórcze. Oprócz spotkań w ramach zajęć na uczelni, organizujemy wyjazdy na konferencje, wystawy oraz inne wydarzenia, takie jak plenery czy festiwale. Prowadzimy spotkania edukacyjne z działaczami kultury i organizatorami wystaw, a także poszerzamy wiedzę naszych członków poprzez udział w inicjatywach wspierających ich rozwój zawodowy.</p>
+      <p>Stworzyliśmy klub, ponieważ chcemy zdobywać nowe umiejętności, ale przede wszystkim dlatego, że jesteśmy otwarci na nowe wyzwania. Działamy w wielu dziedzinach – od malarstwa po tak zwane nowe media ekspresji artystycznej. Zdobywamy również doświadczenie poprzez udział w różnorodnych konkursach krajowych i międzynarodowych.</p>
+      <p>Art Jam działa jako niezależny projekt, a każdy członek ma takie same prawa i obowiązki, możliwość wyrażania siebie oraz uczestnictwa w realizowanych projektach. Do klubu może dołączyć każda osoba zainteresowana samorozwojem i działaniem w obszarze szeroko rozumianej sztuki współczesnej.</p>
+      <p>Pracujemy w technikach takich jak grafika, fotografia, rysunek, malarstwo, animacja czy film.</p>
+      <p>Członkowie klubu prezentują efekty swojej pracy przed publicznością – zarówno na żywo, jak i w przestrzeni wirtualnej, uczą się pracy zespołowej oraz współpracy z zewnętrznymi organizacjami.</p>
+      <p>Jesteśmy studentami różnych kierunków, których łączy wspólna pasja. Naszym celem jest promowanie aktywności artystycznej w murach uczelni oraz nawiązywanie kontaktów z przedstawicielami świata sztuki.</p>
+      <p>Choć jesteśmy młodą organizacją, dokładamy wszelkich starań, aby wspierać naszych członków w rozwoju ich zainteresowań.</p>
+   </div>
+  </div>
+</section>
+<!--Kontakt -->
+<section id="contact" class="bg-turquoise bg-opacity-90 py-16 text-white">
+  <div class="max-w-screen-xl mx-auto px-6">
+    <h2 class="text-3xl font-bold mb-10 text-center">Kontakt</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+
+      <!-- Przewodnicząca -->
+      <div class="space-y-3">
+        <strong class="text-xl font-semibold">Przewodnicząca</strong>
+        <p>Mary Kolenchenko</p>
+        <p>
+          <a href="mailto:mkalianchenka@edu.cdv.pl" class="underline hover:text-black">
+            mkolenchenko@edu.cdv.pl
+          </a>
+        </p>
+      </div>
+
+      <!-- Opiekun -->
+      <div class="space-y-3">
+        <strong class="text-xl font-semibold">Opiekun</strong>
+        <p>Grzegorz Myćka, MA</p>
+        <p>
+          <a href="mailto:grzegorz.mycka@cdv.pl" class="underline hover:text-black">
+            grzegorz.mycka@cdv.pl
+          </a>
+        </p>
+      </div>
+
+      <!-- Ogólny kontakt -->
+      <div class="space-y-3">
+        <strong class="text-xl font-semibold">Kontakt</strong>
+        <p>
+          <a href="mailto:artjam@cdv.pl" class="underline hover:text-black">
+            artjam@cdv.pl
+          </a>
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+</main>
+
+<script>
+// Obsługa podglądu obrazka przed wysłaniem
+document.getElementById('image').addEventListener('change', function(event) {
+  const [file] = event.target.files;
+  // Zmieniamy imagePreview na dynamicImageDisplay
+  const dynamicImageDisplay = document.getElementById('dynamicImageDisplay');
+  // Zmieniamy imagePreviewContainer na displayContainer
+  const displayContainer = document.getElementById('displayContainer');
+
+  if (file) {
+    dynamicImageDisplay.src = URL.createObjectURL(file);
+    displayContainer.classList.remove('hidden');
+    // Upewnij się, że alt text jest aktualizowany (opcjonalnie)
+    dynamicImageDisplay.alt = "Podgląd obrazka";
+  } else {
+    dynamicImageDisplay.src = '';
+    displayContainer.classList.add('hidden');
+  }
+});
+
+
+document.getElementById("memeForm").addEventListener("submit", async function (e) {
+  e.preventDefault();
+
+  const form = e.target;
+  const formData = new FormData(form);
+  const spinner = document.getElementById("loadingSpinner");
+  // Zmieniamy memeResult na displayContainer, a memeImage na dynamicImageDisplay
+  const displayContainer = document.getElementById("displayContainer");
+  const dynamicImageDisplay = document.getElementById("dynamicImageDisplay");
+  const memeError = document.getElementById("memeError");
+
+  spinner.classList.remove("hidden");
+  // Ukryj ewentualne poprzednie błędy
+  memeError.classList.add('hidden');
+  // Ukrywamy kontener podglądu, bo pokaże się on z powrotem, gdy mem będzie gotowy
+  displayContainer.classList.add('hidden');
+
+
+  try {
+    const response = await fetch("{{ url_for('generate_meme') }}", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Błąd generowania mema");
+    }
+
+    const data = await response.json();
+
+    // Ustawiamy źródło obrazka mema na ten sam element <img>
+    dynamicImageDisplay.src = "{{ url_for('static', filename='images/') }}" + data.filename;
+    dynamicImageDisplay.alt = "Wygenerowany mem"; // Aktualizacja alt textu
+    displayContainer.classList.remove("hidden"); // Pokazujemy kontener z memem
+
+  } catch (err) {
+    memeError.textContent = "Wystąpił błąd: " + err.message;
+    memeError.classList.remove('hidden');
+    // Jeśli błąd, upewnij się, że podgląd/wynik jest ukryty lub pusty
+    displayContainer.classList.add('hidden');
+    dynamicImageDisplay.src = ''; // Wyczyść obrazek
+  } finally {
+    spinner.classList.add("hidden");
+  }
+});
+</script>
+</body>
+</html>
+
+
+
+
+<!--<section id="mem-generator">-->
+
+<!--  <div class="max-w-screen-md mx-auto px-6 text-center">-->
+<!--        <form id="memeForm" class="space-y-4" enctype="multipart/form-data">-->
+<!--          <div class="mt-[32px]" >-->
+<!--            &lt;!&ndash; Ukrywamy standardowy input file &ndash;&gt;-->
+<!--            <input type="file" name="image" id="image" accept="image/*" required class="hidden" />-->
+
+<!--            &lt;!&ndash; Custom stylizowany label jako przycisk &ndash;&gt;-->
+<!--            <label for="image"-->
+<!--                   class="cursor-pointer inline-flex items-center justify-center px-6 py-4 bg-gradient-to-r from-pink-400 via-red-400 to-yellow-400-->
+<!--                          text-white text-xl font-extrabold rounded-3xl shadow-lg hover:from-yellow-400 hover:via-red-400 hover:to-pink-400-->
+<!--                          transition duration-500 select-none">Dodaj tu mema, mistrzu!-->
+<!--            </label>-->
+<!--          </div>-->
+
+<!--          <div id="imagePreviewContainer" class="mt-4 mb-4 hidden">-->
+<!--            <h3 class="text-xl font-semibold mb-2 text-turquoise">Podgląd wybranego obrazka:</h3>-->
+<!--            <img id="imagePreview" src="" alt="Podgląd obrazka" class="mx-auto rounded-lg shadow-lg max-w-full h-48 object-contain-->
+<!--                         border-2 border-turquoise">-->
+<!--          </div>-->
+
+<!--          <div>-->
+<!--          <label for="top_text" class="mb-60 pt-8 block text-turquoise text-center font-semibold mb-2">Tekst górny:</label>-->
+<!--          <input type="text" name="top_text" id="top_text" placeholder="Np. Kiedy kończy się sesja..."-->
+<!--                 class="mb-60 px-4 py-2 border border-turquoise rounded focus:outline-none focus:ring-2 focus:ring-turquoise-->
+<!--                        text-white bg-white">-->
+<!--          </div>-->
+
+<!--          <div>-->
+<!--            <label for="bottom_text" class="block text-turquoise text-center font-semibold mb-2">Tekst dolny:</label>-->
+<!--            <input type="text" name="bottom_text" id="bottom_text" placeholder="...a Ty nadal nie śpisz"-->
+<!--                   class="px-4 py-2 border border-turquoise rounded focus:outline-none focus:ring-2 focus:ring-turquoise-->
+<!--                          text-gray-700 bg-white">-->
+<!--          </div>-->
+
+<!--          <button type="submit"-->
+<!--                  class="bg-turquoise text-white px-6 py-3 rounded-xl hover:bg-light-rose transition duration-300 font-semibold-->
+<!--                         shadow-md hover:shadow-lg">-->
+<!--            Generuj mem-->
+<!--          </button>-->
+<!--        </form>-->
+
+<!--        <div id="loadingSpinner" class="mt-6 hidden">-->
+<!--          <svg class="animate-spin h-10 w-10 mx-auto text-turquoise" xmlns="http://www.w3.org/2000/svg" fill="none"-->
+<!--               viewBox="0 0 24 24">-->
+<!--            <circle class="opacity-25" cx="12" cy="12" r="10"-->
+<!--                    stroke="currentColor" stroke-width="4"></circle>-->
+<!--            <path class="opacity-75" fill="currentColor"-->
+<!--                  d="M4 12a8 8 0 018-8v8z"></path>-->
+<!--          </svg>-->
+<!--          <p class="text-turquoise mt-2">Tworzymy mema...</p>-->
+<!--        </div>-->
+
+<!--        <div id="memeResult" class="mt-8 hidden">-->
+<!--          <h3 class="text-xl font-semibold mb-2 text-turquoise">Twój mem:</h3>-->
+<!--          <img id="memeImage" src="" alt="Wygenerowany mem" class="mx-auto rounded-lg shadow-lg max-w-full-->
+<!--                         border-2 border-turquoise">-->
+<!--        </div>-->
+
+<!--        <div id="memeError" class="mt-4 text-red-500 font-semibold hidden"></div>-->
+<!--  </div>-->
+
+<!--</section>-->
