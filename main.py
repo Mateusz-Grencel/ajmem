@@ -47,7 +47,7 @@ def generate_meme_image(image_file, top_text, bottom_text):
         # Warto użyć draw.textbbox dla precyzyjniejszego obliczenia rozmiaru tekstu
         # Dla obecnego kodu, jeśli font_size jest prawidłowe, powinno działać.
         # Sprawdź, czy ImageFont.load_default() ma sensowny rozmiar dla wysokości obrazu.
-        bottom_text_y = img.height - font_size - 10
+        bottom_text_y = img.height - font_size - 20
         if bottom_text_y < 10: # Proste sprawdzenie, aby tekst nie wychodził poza obrazek
             print("WARNING: Tekst dolny może być zbyt duży lub obrazek zbyt mały.")
         draw_text(bottom_text.upper(), y=bottom_text_y)
